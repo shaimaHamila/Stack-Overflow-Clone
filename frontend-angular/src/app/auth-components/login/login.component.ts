@@ -3,6 +3,7 @@ import { AuthService } from '../../auth-services/auth-service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { response } from 'express';
 
 @Component({
   selector: 'app-login',
@@ -27,10 +28,19 @@ export class LoginComponent {
   }
   login() {
     console.log(this.loginForm?.value);
-    this.authService.login(this.loginForm?.value).subscribe((res) => {
-      console.log(res);
-
-    },
+    this.authService.login(
+      this.loginForm.get('email')?.value,
+      this.loginForm.get('password')?.value
+    ).subscribe(
+      res => {
+        this.router.navigateByUrl('/user/dashboard');
+      },
+      error => {
+        this.snackkBar.open("Bad credentials", 'close', {
+          duration: 5000,
+          panelClass: ['error-snackbar'],
+        });
+      }
     );
   }
 
