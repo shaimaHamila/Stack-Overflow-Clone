@@ -11,11 +11,33 @@ export class StorageService {
   constructor() { }
 
   public saveUser(user: any) {
-    window.localStorage.removeItem(USER);
-    window.localStorage.setItem(USER, JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(USER);
+      window.localStorage.setItem(USER, JSON.stringify(user));
+    }
   };
+
   public saveToken(token: string) {
-    window.localStorage.removeItem(TOKEN);
-    window.localStorage.setItem(TOKEN, token);
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(TOKEN);
+      window.localStorage.setItem(TOKEN, token);
+    }
+  }
+
+  static getToken(): string | null {
+    return typeof window !== 'undefined' ? window.localStorage.getItem(TOKEN) : null;
+  }
+  static isUserLoggedIn() {
+    if (this.getToken() == null) {
+      return false;
+    }
+    return true;
+  }
+
+  static logout() {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(TOKEN);
+      window.localStorage.removeItem(USER);
+    }
   }
 }

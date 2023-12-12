@@ -19,8 +19,8 @@ export class AuthService {
   }
   // ...
 
-  login(loginRequest: any): Observable<any> {
-    return this.http.post(BASIC_URL + 'auth', loginRequest, { observe: 'response' })
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<[]>(BASIC_URL + 'auth', { email, password }, { observe: 'response' })
       .pipe(
         tap(__ => this.log("user Authentication")),
         map((res: HttpResponse<any>) => {
