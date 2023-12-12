@@ -1,0 +1,1 @@
+siginup => login => get token (the token sended in the header from the backend) => storege token in localstorage
