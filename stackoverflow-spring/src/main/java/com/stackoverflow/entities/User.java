@@ -1,10 +1,9 @@
 package com.stackoverflow.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -15,4 +14,8 @@ public class User {
     private String name;
     private String email;
     private String password;
+
+//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+//    @JoinColumn(name = "fk_question_id")
+//    List<Question> questions;
 }
