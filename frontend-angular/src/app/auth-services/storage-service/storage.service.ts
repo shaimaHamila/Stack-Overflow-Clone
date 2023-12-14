@@ -29,10 +29,6 @@ export class StorageService {
       window.localStorage.setItem(USER, JSON.stringify(user));
     }
   };
-  // public saveUser(user: any) {
-  //   window.localStorage.removeItem(USER);
-  //   window.localStorage.setItem(USER, JSON.stringify(user));
-  // };
   static getUser(): any {
     if (typeof window !== 'undefined') {
       try {
@@ -45,7 +41,17 @@ export class StorageService {
     }
     return null;
   }
-
+  static getToken(): string | null {
+    if (typeof window !== undefined) {
+      return window.localStorage.getItem(TOKEN);
+    } else {
+      return null;
+    }
+    // return typeof window !== 'undefined' ? window.localStorage.getItem(TOKEN) : null;
+  }
+  // static getToken(): any {
+  //   return localStorage.getItem(TOKEN);
+  // }
   static getUserId(): string {
     const user = this.getUser();
     if (user == null || typeof user !== 'object' || !('userId' in user)) {
@@ -62,16 +68,8 @@ export class StorageService {
       window.localStorage.setItem(TOKEN, token);
     }
   }
-  // public saveToken(token: string): void {
-  //   window.localStorage.removeItem(TOKEN);
-  //   window.localStorage.setItem(TOKEN, token);
-  // }
-  static getToken(): string | null {
-    return typeof window !== 'undefined' ? window.localStorage.getItem(TOKEN) : null;
-  }
-  // static getToken(): any {
-  //   return localStorage.getItem(TOKEN);
-  // }
+
+
   static isUserLoggedIn() {
     if (this.getToken() == null) {
       return false;
@@ -85,8 +83,4 @@ export class StorageService {
       window.localStorage.removeItem(USER);
     }
   }
-  // static logout() {
-  //   window.localStorage.removeItem(TOKEN);
-  //   window.localStorage.removeItem(USER);
-  // }
 }

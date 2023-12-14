@@ -1,0 +1,39 @@
+<div class="question-card" style="margin-top: 30px;" *ngIf="question">
+    <h2 class="question-title">
+        {{question.title}}
+    </h2>
+    <p>
+        Asked On: <b>{{question.createdDate | date: ' dd , MM , YYYY '}}</b>
+        By: <b>{{question.username}}</b>
+        <!-- - Viewed: <b>{{question.views}}</b> times -->
+    </p>
+    <div class="question-body">
+        <p>Body: {{question.body}}</p>
+        <div class="tags-list">
+            <mat-chip-listbox>
+                <mat-chip color="primary" *ngFor="let tag of question.tags">{{tag}} </mat-chip>
+            </mat-chip-listbox>
+        </div>
+        <hr>
+
+    </div>
+</div>
+
+<!-- //////////////////////////// Post Answer html /////////////////////////////// -->
+
+<div class="answer-section" style="margin-top: 30px;">
+    <div>
+        <div>
+            <h2>Post Answer</h2>
+        </div>
+        <form [formGroup]="validateForm" (ngSubmit)="addAnswer()">
+            <div class="form-field">
+                <mat-form-field appearance="fill">
+                    <mat-label>Subject</mat-label>
+                    <textarea matInput rows="2" placeholder="Solution ...." formControlName="body"></textarea>
+                </mat-form-field>
+            </div>
+            <button type="submit" mat-raised-button color="accent">Post Your Answer</button>
+        </form>
+    </div>
+</div>

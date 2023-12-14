@@ -2,6 +2,7 @@ package com.stackoverflow.controllers;
 
 import com.stackoverflow.dtos.AllQuestionResponseDto;
 import com.stackoverflow.dtos.QuestionDTO;
+import com.stackoverflow.dtos.SingleQuestionDto;
 import com.stackoverflow.entities.Question;
 import com.stackoverflow.services.question.QuestionService;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,14 @@ public class QuestionController {
     public ResponseEntity<AllQuestionResponseDto> getAllQuestions(@PathVariable int pageNumber){
         AllQuestionResponseDto allQuestionResponseDto = questionService.getAllQuestions(pageNumber);
         return ResponseEntity.ok(allQuestionResponseDto);
+    }
+
+    @GetMapping("/question/{questionId}")
+    public ResponseEntity<?> getQuestionById(@PathVariable Long questionId){
+        SingleQuestionDto singleQuestionDto = questionService.getQuestionById(questionId);
+        if (singleQuestionDto == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(singleQuestionDto);
     }
 }
