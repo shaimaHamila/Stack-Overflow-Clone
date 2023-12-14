@@ -2,6 +2,7 @@ package com.stackoverflow.services.question;
 
 import com.stackoverflow.dtos.AllQuestionResponseDto;
 import com.stackoverflow.dtos.QuestionDTO;
+import com.stackoverflow.dtos.SingleQuestionDto;
 import com.stackoverflow.entities.Question;
 import com.stackoverflow.entities.User;
 import com.stackoverflow.repositories.QuestionRepository;
@@ -58,5 +59,13 @@ public class QuestionServiceImpl implements  QuestionService{
         allQuestionResponseDto.setPageNumber(questionsPage.getPageable().getPageNumber());
         allQuestionResponseDto.setTotalPages(questionsPage.getTotalPages());
         return allQuestionResponseDto;
+    }
+
+    @Override
+    public SingleQuestionDto getQuestionById(Long questionId) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        SingleQuestionDto singleQuestionDto = new SingleQuestionDto();
+        optionalQuestion.ifPresent(question -> singleQuestionDto.setQuestionDTO(question.getQuestionDto()));
+        return singleQuestionDto;
     }
 }
