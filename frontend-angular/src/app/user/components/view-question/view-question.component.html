@@ -33,7 +33,13 @@
                     <textarea matInput rows="2" placeholder="Solution ...." formControlName="body"></textarea>
                 </mat-form-field>
             </div>
-            <button type="submit" mat-raised-button color="accent">Post Your Answer</button>
+            <div class="form-field">
+                <div class="image-preview" *ngIf="selectedFile">
+                    <img [src]="imagePreview" height="50" alt="Image Preview">
+                </div>
+                <input id="file" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event)">
+            </div>
+            <button mat-raised-button color="accent" [disabled]="validateForm.invalid">Post Your Answer</button>
         </form>
     </div>
 </div>

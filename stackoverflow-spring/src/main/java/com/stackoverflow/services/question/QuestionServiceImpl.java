@@ -1,10 +1,14 @@
 package com.stackoverflow.services.question;
 
 import com.stackoverflow.dtos.AllQuestionResponseDto;
+import com.stackoverflow.dtos.AnswerDto;
 import com.stackoverflow.dtos.QuestionDTO;
 import com.stackoverflow.dtos.SingleQuestionDto;
+import com.stackoverflow.entities.Answer;
 import com.stackoverflow.entities.Question;
 import com.stackoverflow.entities.User;
+import com.stackoverflow.repositories.AnswerRepository;
+import com.stackoverflow.repositories.ImageRepository;
 import com.stackoverflow.repositories.QuestionRepository;
 import com.stackoverflow.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,12 +28,18 @@ public class QuestionServiceImpl implements  QuestionService{
     //Number of questions per page
     public static final int SEARCH_RESULT_PER_PAGE = 5;
 
+    @Autowired
+    AnswerRepository answerRepository;
 
     @Autowired
     QuestionRepository questionRepository;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
+
     @Override
     public QuestionDTO addQuestion(QuestionDTO questionDto) {
         Optional<User> optionalUser = userRepository.findById(questionDto.getUserId());
@@ -64,8 +76,23 @@ public class QuestionServiceImpl implements  QuestionService{
     @Override
     public SingleQuestionDto getQuestionById(Long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        SingleQuestionDto singleQuestionDto = new SingleQuestionDto();
-        optionalQuestion.ifPresent(question -> singleQuestionDto.setQuestionDTO(question.getQuestionDto()));
-        return singleQuestionDto;
+
+        if(optionalQuestion.isPresent()){
+            //get the question and set it to singleQuestionDto
+            SingleQuestionDto singleQuestionDto = new SingleQuestionDto();
+            singleQuestionDto.setQuestionDTO(optionalQuestion.get().getQuestionDto());
+
+            //get the question's answers and set it to singleQuestionDto
+            List<AnswerDto> answerDtoList = new ArrayList<>();
+            List<Answer> answerList = answerRepository.findAllByQuestionId(questionId);
+            for (Answer answer: answerList) {
+                AnswerDto answerDto = answer.getAnswerDto();
+                answerDto.setFile(imageRepository.findByAnswer(answer));
+                answerDtoList.add(answerDto);
+            }
+            singleQuestionDto.setAnswerDtoList(answerDtoList);
+            return singleQuestionDto;
+        }
+        return null;
     }
 }

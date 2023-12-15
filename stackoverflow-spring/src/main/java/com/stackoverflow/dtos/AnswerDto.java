@@ -1,5 +1,6 @@
 package com.stackoverflow.dtos;
 
+import com.stackoverflow.entities.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,8 @@ public class AnswerDto {
     private  Long questionId;
 
     private Long userId;
+
+    private String username;
+
+    private Image file;
 }
