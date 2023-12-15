@@ -23,10 +23,17 @@ export class QuestionService {
     return this.http.get<[]>(BASIC_URL + `questions/${pageNumber}`,
       { headers: this.createAuthorizationHeadere() });
   }
+
   getQuestionById(questionId: number): Observable<any> {
     return this.http.get<any>(BASIC_URL + `question/${questionId}`,
       { headers: this.createAuthorizationHeadere() });
   }
+
+  getQuestionsByUserId(pageNumber: number): Observable<any> {
+    return this.http.get<[]>(BASIC_URL + `questions/${StorageService.getUserId()}/${pageNumber}`,
+      { headers: this.createAuthorizationHeadere() });
+  }
+
   createAuthorizationHeadere() {
     let authHeaders = new HttpHeaders();
     return authHeaders.set(

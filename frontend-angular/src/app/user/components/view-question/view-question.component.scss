@@ -86,3 +86,21 @@ img {
   max-width: 40%;
   height: 40%;
 }
+
+.answer-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 60%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 600px) {
+  .answer-card {
+    padding: 10px;
+  }
+}
+.answred {
+  color: rgb(22, 22, 22);
+  font-weight: 400;
+}

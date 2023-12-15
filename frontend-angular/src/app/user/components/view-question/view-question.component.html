@@ -1,3 +1,6 @@
+<!-- //////////////////////////// View question html /////////////////////////////// -->
+
+
 <div class="question-card" style="margin-top: 30px;" *ngIf="question">
     <h2 class="question-title">
         {{question.title}}
@@ -19,9 +22,27 @@
     </div>
 </div>
 
+<!-- //////////////////////////// View Answer html /////////////////////////////// -->
+
+<div *ngFor="let answer of answers; let i = index;" class="answer-card" style="margin-top: 30px;">
+    <h2>Answer</h2>
+    <div>
+        <div>
+            <h5 class="answred">
+                Answerd by: <b>{{ answer.username }}</b> {{" - "}}
+                Answered on: <b>{{ answer.createdDate | date: 'MMM d, y, h:mm a'}}</b>
+            </h5>
+            <p>{{ answer.body }}</p>
+            <div *ngIf="answer.convertedImg">
+                <img [src]="answer.convertedImg" />
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- //////////////////////////// Post Answer html /////////////////////////////// -->
 
-<div class="answer-section" style="margin-top: 30px;">
+<div class="answer-section" style="margin-top: 30px; margin-bottom: 30px;">
     <div>
         <div>
             <h2>Post Answer</h2>
@@ -43,3 +64,4 @@
         </form>
     </div>
 </div>
+<div style="margin-top: 30px; margin-bottom: 30px;">.</div>

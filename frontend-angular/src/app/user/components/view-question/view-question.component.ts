@@ -18,6 +18,7 @@ export class ViewQuestionComponent {
   selectedFile!: File | null;
   imagePreview!: string | ArrayBuffer | null;
   formData: FormData = new FormData();
+  answers: any[] = [];
 
   constructor(private questionService: QuestionService,
     private answerService: AnswerService,
@@ -33,7 +34,14 @@ export class ViewQuestionComponent {
 
   getQuestionById() {
     this.questionService.getQuestionById(this.questionId).subscribe(data => {
+      console.log("Get Question By Id questionService", data)
       this.question = data.questionDTO;
+      data.answerDtoList.forEach((element: any) => {
+        if (element.file != null) {
+          element.convertedImg = "data:image/jpeg;base64," + element.file.data;
+        }
+        this.answers.push(element);
+      })
 
     })
   }
@@ -51,6 +59,7 @@ export class ViewQuestionComponent {
           console.log("Answer image added", response)
         }
         )
+
       });
   }
   onFileSelectedd(event: any) {
