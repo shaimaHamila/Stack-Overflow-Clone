@@ -1,6 +1,7 @@
 package com.stackoverflow.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.stackoverflow.dtos.AnswerDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,4 +38,15 @@ public class Answer {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Question question;
+
+    public AnswerDto getAnswerDto() {
+        AnswerDto answerDto = new AnswerDto();
+        answerDto.setId(id);
+        answerDto.setBody(body);
+        answerDto.setUserId(user.getId());
+        answerDto.setQuestionId(question.getId());
+        answerDto.setUsername(user.getName());
+        answerDto.setCreatedDate(createdDate);
+    return answerDto;
+    }
 }

@@ -3,7 +3,6 @@ import { QuestionService } from '../../user-services/question-service/question.s
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnswerService } from '../../user-services/answer-services/answer.service';
-import { S } from '@angular/cdk/keycodes';
 import { StorageService } from '../../../auth-services/storage-service/storage.service';
 
 @Component({
@@ -16,6 +15,10 @@ export class ViewQuestionComponent {
   questionId: number = this.activatedRoute.snapshot.params["questionId"];
   question: any;
   validateForm!: FormGroup;
+  selectedFile!: File | null;
+  imagePreview!: string | ArrayBuffer | null;
+  formData: FormData = new FormData();
+
   constructor(private questionService: QuestionService,
     private answerService: AnswerService,
     private activatedRoute: ActivatedRoute,
@@ -30,9 +33,7 @@ export class ViewQuestionComponent {
 
   getQuestionById() {
     this.questionService.getQuestionById(this.questionId).subscribe(data => {
-      console.log("Get question by id from view-question", data);
       this.question = data.questionDTO;
-      console.log("question question title", this.question);
 
     })
   }
@@ -41,12 +42,37 @@ export class ViewQuestionComponent {
     const data = this.validateForm.value;
     data.questionId = this.questionId;
     data.userId = StorageService.getUserId();
-    console.log("Answer To add", data)
-
-    this.answerService.postAnswer(data).subscribe(data => {
-      console.log("Answer added", data)
-    });
+    this.formData.append('multipartFile', this.selectedFile!);
+    console.log("********** formDataTest formDataTest : ", this.formData)
+    console.log("********** formDataTest multipartFile : ", this.formData.get("multipartFile"))
+    this.answerService.postAnswer(data).subscribe(
+      (res) => {
+        this.answerService.postAnswerImage(this.formData, res.id).subscribe(response => {
+          console.log("Answer image added", response)
+        }
+        )
+      });
   }
+  onFileSelectedd(event: any) {
+    this.selectedFile = event.target.files[0];
+    this.previewImage();
+    console.log("********** selected file", this.selectedFile)
 
+  }
+  onFileSelected(event: any) {
+
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+    this.previewImage();
+  }
+  previewImage() {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
+    reader.readAsDataURL(this.selectedFile!);
+  }
 
 }
