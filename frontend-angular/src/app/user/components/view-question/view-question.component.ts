@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component } from '@angular/core';
 import { QuestionService } from '../../user-services/question-service/question.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +24,8 @@ export class ViewQuestionComponent {
   constructor(private questionService: QuestionService,
     private answerService: AnswerService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.validateForm = this.formBuilder.group({
@@ -55,13 +57,28 @@ export class ViewQuestionComponent {
     console.log("********** formDataTest multipartFile : ", this.formData.get("multipartFile"))
     this.answerService.postAnswer(data).subscribe(
       (res) => {
-        this.answerService.postAnswerImage(this.formData, res.id).subscribe(response => {
-          console.log("Answer image added", response)
-        }
+        this.answerService.postAnswerImage(this.formData, res.id).subscribe(
+          (response) => {
+            console.log("Answer image added", response)
+          }
         )
-
+        console.log("Post answer API Response", res)
+        if (res.is != null) {
+          this.snackBar.open("Answer added successfully", "Close", {
+            duration: 5000,
+          });
+        } else {
+          this.snackBar.open("Answer added failed", "Close", {
+            duration: 5000,
+          });
+        }
       });
   }
+
+  addVote(voteType: string) {
+    console.log("********** addVote voteType : ", voteType)
+  }
+
   onFileSelectedd(event: any) {
     this.selectedFile = event.target.files[0];
     this.previewImage();
@@ -69,7 +86,6 @@ export class ViewQuestionComponent {
 
   }
   onFileSelected(event: any) {
-
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
