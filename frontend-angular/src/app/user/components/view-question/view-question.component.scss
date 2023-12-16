@@ -104,3 +104,15 @@ img {
   color: rgb(22, 22, 22);
   font-weight: 400;
 }
+
+.vote-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.arrow-icon {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 24px;
+}
