@@ -1,6 +1,6 @@
 # StackOverflow Clone
 
-This project is a basic implementation of a StackOverflow clone with essential features, including user authentication, question creation, answering, image uploading, and voting. The frontend is developed using Angular, and the backend is built with Spring Boot. JWT is used for security.
+This project is a StackOverflow clone with basic features, including user authentication, question creation, answering, image uploading, and voting. The frontend is developed using Angular, and the backend is built with Spring Boot. JWT is used for security.
 
 ## Prerequisites
 
