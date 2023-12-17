@@ -6,7 +6,9 @@ import com.stackoverflow.dtos.QuestionDTO;
 import com.stackoverflow.dtos.SingleQuestionDto;
 import com.stackoverflow.entities.Answer;
 import com.stackoverflow.entities.Question;
+import com.stackoverflow.entities.QuestionVote;
 import com.stackoverflow.entities.User;
+import com.stackoverflow.enums.VoteType;
 import com.stackoverflow.repositories.AnswerRepository;
 import com.stackoverflow.repositories.ImageRepository;
 import com.stackoverflow.repositories.QuestionRepository;
@@ -74,13 +76,29 @@ public class QuestionServiceImpl implements  QuestionService{
     }
 
     @Override
-    public SingleQuestionDto getQuestionById(Long questionId) {
+    public SingleQuestionDto getQuestionById(Long userId, Long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
 
         if(optionalQuestion.isPresent()){
             //get the question and set it to singleQuestionDto
             SingleQuestionDto singleQuestionDto = new SingleQuestionDto();
-            singleQuestionDto.setQuestionDTO(optionalQuestion.get().getQuestionDto());
+
+            // vote check
+            Question existingQuestion = optionalQuestion.get();
+            Optional<QuestionVote> optionalQuestionVote = existingQuestion.getQuestionVoteList().stream().filter(
+                    vote -> vote.getUser().getId().equals(userId)
+            ).findFirst();
+            QuestionDTO questionDto = optionalQuestion.get().getQuestionDto();
+            questionDto.setVoted(0);
+            if(optionalQuestionVote.isPresent()){
+                if(optionalQuestionVote.get().getVoteType().equals(VoteType.UPVOTE)){
+                    questionDto.setVoted(1);
+                }else{
+                    questionDto.setVoted(-1);
+                }
+            }
+
+            singleQuestionDto.setQuestionDTO(questionDto);
 
             //get the question's answers and set it to singleQuestionDto
             List<AnswerDto> answerDtoList = new ArrayList<>();

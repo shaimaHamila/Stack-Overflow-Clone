@@ -4,6 +4,7 @@ import com.stackoverflow.dtos.QuestionVoteDto;
 import com.stackoverflow.entities.Question;
 import com.stackoverflow.entities.QuestionVote;
 import com.stackoverflow.entities.User;
+import com.stackoverflow.enums.VoteType;
 import com.stackoverflow.repositories.QuestionRepository;
 import com.stackoverflow.repositories.QuestionVoteRepository;
 import com.stackoverflow.repositories.UserRepository;
@@ -32,9 +33,21 @@ public class VoteServiceImpl implements VoteService{
 
         if (optionalQuestion.isPresent() && optionalUser.isPresent()){
             QuestionVote questionVote = new QuestionVote();
+
+            Question existingQuestion = optionalQuestion.get();
+
             questionVote.setVoteType(questionVoteDto.getVoteType());
+
+            if(questionVote.getVoteType() == VoteType.UPVOTE){
+                existingQuestion.setVoteCount(existingQuestion.getVoteCount() + 1);
+            }else {
+                existingQuestion.setVoteCount(existingQuestion.getVoteCount() - 1);
+            }
+
             questionVote.setQuestion(optionalQuestion.get());
             questionVote.setUser(optionalUser.get());
+
+            questionRepository.save(existingQuestion);
 
             QuestionVote votedQuestion = questionVoteRepository.save(questionVote);
             QuestionVoteDto questionVotedDto = new QuestionVoteDto();

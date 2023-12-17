@@ -15,7 +15,4 @@ public class User {
     private String email;
     private String password;
 
-//    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-//    @JoinColumn(name = "fk_question_id")
-//    List<Question> questions;
 }
