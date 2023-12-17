@@ -66,10 +66,11 @@ export class PostQuestionComponent {
   }
 
   postQuestion() {
-    console.log(this.validateForm.value);
+
     this.questionService.postQuestion(this.validateForm.value).subscribe(res => {
       console.log(res);
-      if (res.id != null) {
+      this.validateForm.reset();
+      if (res.id !== null) {
         this.snackBar.open("Question Posted Successfully", "Close", {
           duration: 5000,
         });
