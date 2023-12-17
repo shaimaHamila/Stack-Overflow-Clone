@@ -77,6 +77,23 @@ export class ViewQuestionComponent {
 
   addVote(voteType: string) {
     console.log("********** addVote voteType : ", voteType)
+    const data = {
+      userId: StorageService.getUserId(),
+      questionId: this.questionId,
+      voteType: voteType
+    }
+    this.questionService.addVoteToQuestion(data).subscribe(res => {
+      console.log("********** addVote res : ", res)
+      if (res != null) {
+        this.snackBar.open("Vote added successfully", "Close", {
+          duration: 5000,
+        });
+      } else {
+        this.snackBar.open("Vote added failed", "Close", {
+          duration: 5000,
+        });
+      }
+    })
   }
 
   onFileSelectedd(event: any) {

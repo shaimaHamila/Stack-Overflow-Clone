@@ -34,6 +34,12 @@ export class QuestionService {
       { headers: this.createAuthorizationHeadere() });
   }
 
+
+  addVoteToQuestion(VoteQuestionDto: any): Observable<any> {
+    return this.http.post<[]>(BASIC_URL + 'vote', VoteQuestionDto,
+      { headers: this.createAuthorizationHeadere() })
+  }
+
   createAuthorizationHeadere() {
     let authHeaders = new HttpHeaders();
     return authHeaders.set(
