@@ -38,7 +38,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<QuestionVote> questionVoteList;
-    
+
     public QuestionDTO getQuestionDto(){
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setId(id);

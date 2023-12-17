@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -64,7 +65,11 @@ public class QuestionServiceImpl implements  QuestionService{
 
     @Override
     public AllQuestionResponseDto getAllQuestions(int pageNumber) {
-        Pageable paging = PageRequest.of(pageNumber, SEARCH_RESULT_PER_PAGE);
+// Specify the sorting direction and the field to sort by
+        Sort sort = Sort.by(Sort.Order.desc("createdDate"));
+
+// Create a Pageable object with sorting
+        Pageable paging = PageRequest.of(pageNumber, SEARCH_RESULT_PER_PAGE, sort);
         Page<Question> questionsPage =  questionRepository.findAll(paging);
 
         AllQuestionResponseDto allQuestionResponseDto = new AllQuestionResponseDto();

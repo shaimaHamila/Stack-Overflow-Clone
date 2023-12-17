@@ -63,7 +63,7 @@ export class ViewQuestionComponent {
           }
         )
         console.log("Post answer API Response", res)
-        if (res.is != null) {
+        if (res.id != null) {
           this.snackBar.open("Answer added successfully", "Close", {
             duration: 5000,
           });
@@ -72,7 +72,9 @@ export class ViewQuestionComponent {
             duration: 5000,
           });
         }
-      });
+      }
+    );
+    this.validateForm.reset();
   }
 
   addVote(voteType: string, voted: number) {
