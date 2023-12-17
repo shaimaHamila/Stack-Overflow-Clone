@@ -9,7 +9,7 @@ public interface QuestionService {
 
     AllQuestionResponseDto getAllQuestions(int pageNumber);
 
-    SingleQuestionDto getQuestionById(Long questionId);
+    SingleQuestionDto getQuestionById(Long userId, Long questionId);
 
     AllQuestionResponseDto getAllQuestionsByUserId(Long userId, int pageNumber);
 }

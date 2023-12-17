@@ -25,7 +25,7 @@ export class QuestionService {
   }
 
   getQuestionById(questionId: number): Observable<any> {
-    return this.http.get<any>(BASIC_URL + `question/${questionId}`,
+    return this.http.get<any>(BASIC_URL + `question/${StorageService.getUserId()}/${questionId}`,
       { headers: this.createAuthorizationHeadere() });
   }
 

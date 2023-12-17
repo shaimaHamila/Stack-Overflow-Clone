@@ -35,9 +35,9 @@ public class QuestionController {
         return ResponseEntity.ok(allQuestionResponseDto);
     }
 
-    @GetMapping("/question/{questionId}")
-    public ResponseEntity<?> getQuestionById(@PathVariable Long questionId){
-        SingleQuestionDto singleQuestionDto = questionService.getQuestionById(questionId);
+    @GetMapping("/question/{userId}/{questionId}")
+    public ResponseEntity<?> getQuestionById(@PathVariable Long userId , @PathVariable Long questionId){
+        SingleQuestionDto singleQuestionDto = questionService.getQuestionById(userId, questionId);
         if (singleQuestionDto == null){
             return ResponseEntity.notFound().build();
         }

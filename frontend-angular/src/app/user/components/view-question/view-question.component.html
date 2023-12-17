@@ -11,10 +11,13 @@
         <!-- - Viewed: <b>{{question.views}}</b> times -->
     </p>
     <div class="vote-section">
-        <div class="arrow-icon" (click)="addVote('UPVOTE')">
+        <div class="arrow-icon" (click)="addVote('UPVOTE', question.voted)"
+            [ngStyle]="{'color' : question.voted == '1'? 'rgb(11,211,81)' : 'default'}">
             <i class="material-icons">keyboard_arrow_up</i>
         </div>
-        <div class="arrow-icon" (click)="addVote ('DOWNVOTE')">
+        <div class="vote-count">{{question.voteCount}}</div>
+        <div class="arrow-icon" (click)="addVote ('DOWNVOTE', question.voted)"
+            [ngStyle]="{'color' : question.voted == '-1'? 'rgb(11,211,81)' : 'default'}">
             <i class="material-icons">keyboard_arrow_down</i>
         </div>
     </div>
