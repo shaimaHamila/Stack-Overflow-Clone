@@ -87,8 +87,9 @@ This project is a StackOverflow clone with basic features, including user authen
 
 Feel free to customize and extend the functionality based on your project requirements.
 
+## Project screenshots:
 
-## Project screenshots![voteForQuestion](https://github.com/user-attachments/assets/293456a3-b7f9-424d-9bf8-c6c21852a00d)
+![voteForQuestion](https://github.com/user-attachments/assets/293456a3-b7f9-424d-9bf8-c6c21852a00d)
 ![signup](https://github.com/user-attachments/assets/cfd96d16-5ba4-4ee2-ad3e-8f9301a2afcc)
 ![questionReply](https://github.com/user-attachments/assets/1e3b3e2b-3814-43c6-8729-bf995f835865)
 ![postQuestion](https://github.com/user-attachments/assets/a6423444-5d52-4140-97c6-6b7185ae836b)
