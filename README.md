@@ -86,3 +86,15 @@ This project is a StackOverflow clone with basic features, including user authen
 - Ensure that the frontend and backend are running simultaneously for the full application experience.
 
 Feel free to customize and extend the functionality based on your project requirements.
+
+
+## Project screenshots![voteForQuestion](https://github.com/user-attachments/assets/293456a3-b7f9-424d-9bf8-c6c21852a00d)
+![signup](https://github.com/user-attachments/assets/cfd96d16-5ba4-4ee2-ad3e-8f9301a2afcc)
+![questionReply](https://github.com/user-attachments/assets/1e3b3e2b-3814-43c6-8729-bf995f835865)
+![postQuestion](https://github.com/user-attachments/assets/a6423444-5d52-4140-97c6-6b7185ae836b)
+![myQuestions](https://github.com/user-attachments/assets/b5b96fcd-2aa0-4521-b990-b27e0f5f3d38)
+![login](https://github.com/user-attachments/assets/d1e796f8-6295-46ec-b171-d57d155997f1)
+:
+![allQuestions](https://github.com/user-attachments/assets/af22ffc7-56cd-491b-8400-9535749fd592)
+
+
